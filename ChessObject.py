@@ -34,9 +34,11 @@ class BlackPiece(ChessObject):
     set image for black piece and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_piece
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class BlackBishop(ChessObject):
@@ -44,9 +46,11 @@ class BlackBishop(ChessObject):
     set image for black bishop and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_bishop
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class BlackKnight(ChessObject):
@@ -54,9 +58,11 @@ class BlackKnight(ChessObject):
     set image for black Knight and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_knight
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class BlackRook(ChessObject):
@@ -64,9 +70,11 @@ class BlackRook(ChessObject):
     set image for black Rook and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_rook
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class BlackQueen(ChessObject):
@@ -74,9 +82,11 @@ class BlackQueen(ChessObject):
     set image for black Queen and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_queen
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class BlackKing(ChessObject):
@@ -84,9 +94,11 @@ class BlackKing(ChessObject):
     set image for black King and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._b_king
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class WhitePiece(ChessObject):
@@ -94,10 +106,11 @@ class WhitePiece(ChessObject):
     set image for white piece and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_piece
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class WhiteBishop(ChessObject):
@@ -105,10 +118,11 @@ class WhiteBishop(ChessObject):
     set image for white bishop and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_bishop
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class WhiteKnight(ChessObject):
@@ -116,10 +130,11 @@ class WhiteKnight(ChessObject):
     set image for white Knight and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_knight
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class WhiteRook(ChessObject):
@@ -127,20 +142,32 @@ class WhiteRook(ChessObject):
     set image for white Rook and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_rook
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
+        self.x = 213
+        self.y =213
 
+    def movee(self, dx, dy):
+        self.x = dx
+        self.y = dy
+
+    def update(self):
+        self.rect.x = self.x
+        self.rect.y = self.y
 
 class WhiteQueen(ChessObject):
     """
     set image for white Queen and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_queen
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class WhiteKing(ChessObject):
@@ -148,9 +175,11 @@ class WhiteKing(ChessObject):
     set image for white King and set position on the board by given a chess notation, like "a1'
     :return: none
     """
-    def __init__(self, chess_notation):
+    def __init__(self, xy_notation=(0, 0)):
         super().__init__()
         self.image = self._w_king
+        self.rect = self.image.get_rect()
+        self.rect.move_ip(xy_notation[0], xy_notation[1])
 
 
 class ChessBoard(ChessObject):

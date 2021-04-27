@@ -1,14 +1,14 @@
 import pygame
-from Board import Board
+from Params import Params
 
 
-class ImageDatabase(Board):
+class ImageDatabase(Params):
     def __init__(self):
         super().__init__()
 
         # Chess Board
         self._chess_board = pygame.image.load('chess_png/chessboard.png')
-        self._chess_board = pygame.transform.scale(self._chess_board, (self.width_board, self.height_board ))
+        self._chess_board = pygame.transform.scale(self._chess_board, (self.width_chess_board, self.height_chess_board))
 
         # Black pieces
         self._b_piece = pygame.image.load('chess_png/bP.png')

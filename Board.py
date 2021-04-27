@@ -1,48 +1,12 @@
+from ChessObject import *
 
-class Board:
-    def __init__(self, width=800, height=800):
 
-        # width and height of board
-        self.width_board = width
-        self.height_board = height
+class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQueen, BlackKnight,
+            WhiteBishop, WhiteKing,  WhiteRook, WhiteKnight, WhitePiece, WhiteQueen):
+    def __init__(self):
+        super().__init__()
 
-        # width_field and height_field of one field (fields on board are 64)
-        self.width_field = ((self.width_board * 1.0) / 8).__round__()
-        self.height_field = ((self.height_board * 1.0) / 8).__round__()
-
-        self.initial_placement = [{'piece': 'w_rock_L', 'position': 'a1'},
-                                  {'piece': 'w_bishop_L', 'position': 'b1'},
-                                  {'piece': 'w_knight_L', 'position': 'c1'},
-                                  {'piece': 'w_king', 'position': 'd1'},
-                                  {'piece': 'bw_queen', 'position': 'e1'},
-                                  {'piece': 'w_knight_R', 'position': 'f1'},
-                                  {'piece': 'w_bishop_R', 'position': 'g1'},
-                                  {'piece': 'w_rock_R', 'position': 'h1'},
-                                  {'piece': 'w_piece_A', 'position': 'a2'},
-                                  {'piece': 'w_piece_B', 'position': 'b2'},
-                                  {'piece': 'w_piece_C', 'position': 'c2'},
-                                  {'piece': 'w_piece_D', 'position': 'd2'},
-                                  {'piece': 'w_piece_E', 'position': 'e2'},
-                                  {'piece': 'w_piece_F', 'position': 'f2'},
-                                  {'piece': 'w_piece_G', 'position': 'g2'},
-                                  {'piece': 'w_piece_H', 'position': 'h2'},
-
-                                  {'piece': 'b_rock_L', 'position': 'a8'},
-                                  {'piece': 'b_bishop_L', 'position': 'b8'},
-                                  {'piece': 'b_knight_L', 'position': 'c8'},
-                                  {'piece': 'b_king', 'position': 'd8'},
-                                  {'piece': 'b_queen', 'position': 'e8'},
-                                  {'piece': 'b_knight_R', 'position': 'f8'},
-                                  {'piece': 'b_bishop_R', 'position': 'g8'},
-                                  {'piece': 'b_rock_R', 'position': 'h8'},
-                                  {'piece': 'b_piece_A', 'position': 'a7'},
-                                  {'piece': 'b_piece_B', 'position': 'b7'},
-                                  {'piece': 'b_piece_C', 'position': 'c7'},
-                                  {'piece': 'b_piece_D', 'position': 'd7'},
-                                  {'piece': 'b_piece_E', 'position': 'e7'},
-                                  {'piece': 'b_piece_F', 'position': 'f7'},
-                                  {'piece': 'b_piece_G', 'position': 'g7'},
-                                  {'piece': 'b_piece_H', 'position': 'h7'}]
+        self.chess_board = ChessBoard()
 
         self.notation_to_xy_position = [{'notation': 'a1', 'position': (self.width_field * 0, self.height_field * 7)},
                                         {'notation': 'a2', 'position': (self.width_field * 0, self.height_field * 6)},
@@ -116,10 +80,52 @@ class Board:
                                         {'notation': 'h7', 'position': (self.width_field * 7, self.height_field * 1)},
                                         {'notation': 'h8', 'position': (self.width_field * 7, self.height_field * 0)}]
 
+        self.initial_placement = [{'piece': WhiteRook(self.get_xy_from_chess_notation('a1')), 'position': 'a1'},
+                                  {'piece': WhiteBishop(self.get_xy_from_chess_notation('b1')), 'position': 'b1'},
+                                  {'piece': WhiteKnight(self.get_xy_from_chess_notation('c1')), 'position': 'c1'},
+                                  {'piece': WhiteKing(self.get_xy_from_chess_notation('d1')), 'position': 'd1'},
+                                  {'piece': WhiteQueen(self.get_xy_from_chess_notation('e1')), 'position': 'e1'},
+                                  {'piece': WhiteKnight(self.get_xy_from_chess_notation('f1')), 'position': 'f1'},
+                                  {'piece': WhiteBishop(self.get_xy_from_chess_notation('g1')), 'position': 'g1'},
+                                  {'piece': WhiteRook(self.get_xy_from_chess_notation('h1')), 'position': 'h1'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('a2')), 'position': 'a2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('b2')), 'position': 'b2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('c2')), 'position': 'c2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('d2')), 'position': 'd2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('e2')), 'position': 'e2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('f2')), 'position': 'f2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('g2')), 'position': 'g2'},
+                                  {'piece': WhitePiece(self.get_xy_from_chess_notation('h2')), 'position': 'h2'},
+
+                                  {'piece': BlackRook(self.get_xy_from_chess_notation('a8')), 'position': 'a8'},
+                                  {'piece': BlackBishop(self.get_xy_from_chess_notation('b8')), 'position': 'b8'},
+                                  {'piece': BlackKnight(self.get_xy_from_chess_notation('c8')), 'position': 'c8'},
+                                  {'piece': BlackKing(self.get_xy_from_chess_notation('d8')), 'position': 'd8'},
+                                  {'piece': BlackQueen(self.get_xy_from_chess_notation('e8')), 'position': 'e8'},
+                                  {'piece': BlackKnight(self.get_xy_from_chess_notation('f8')), 'position': 'f8'},
+                                  {'piece': BlackBishop(self.get_xy_from_chess_notation('g8')), 'position': 'g8'},
+                                  {'piece': BlackRook(self.get_xy_from_chess_notation('h8')), 'position': 'h8'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('a7')), 'position': 'a7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('b7')), 'position': 'b7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('c7')), 'position': 'c7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('d7')), 'position': 'd7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('e7')), 'position': 'e7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('f7')), 'position': 'f7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('g7')), 'position': 'g7'},
+                                  {'piece': BlackPiece(self.get_xy_from_chess_notation('h7')), 'position': 'h7'}]
+
+    def move_piece(self, chess_notation_move):
+        for i in self.initial_placement:
+            key = i.get('position')
+            if key == chess_notation_move[0:2]:
+                temp = self.get_xy_from_chess_notation(chess_notation_move[2:4])
+                i.get("piece").movee(temp[0], temp[1])
+                break
+
     def get_xy_from_chess_notation(self, notation):
         for i in self.notation_to_xy_position:
             key = i.get('notation')
-            if key is notation:
+            if key == notation:
                 return i.get('position')
 
 
