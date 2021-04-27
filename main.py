@@ -1,24 +1,26 @@
 import pygame
 from Screen import Screen
-from ChessPieces import ChessPieces
 
 
 def main():
 
     screen = Screen(800, 800)
 
+    clock = pygame.time.Clock()
+
     # Game Loop
     running = True
     while running:
+
+        # declare fps
+        clock.tick(30)
+
+        # Process input (events)
         for event in pygame.event.get():
+            # check for closing window
             if event.type == pygame.QUIT:
                 running = False
 
-        # display board
-        screen.display_board()
-
-        # display pieces for start
-        screen.init_pieces_on_board()
 
         # update screen
         screen.update()
