@@ -1,6 +1,10 @@
 import pygame
+
+from ChessObject import MOVE
 from Screen import Screen
 from Board import Board
+
+
 
 
 def main():
@@ -10,6 +14,8 @@ def main():
     screen.init_board_with_pieces()
 
     clock = pygame.time.Clock()
+
+
 
     # Game Loop
     running = True
@@ -23,11 +29,12 @@ def main():
             # check for closing window
             if event.type == pygame.QUIT:
                 running = False
+            # event moving pieces
+
 
         # update screen
-        print(screen.all_sprite.sprites()[1].rect.x)
+        board.move_piece('a1c6')
 
-        board.move_piece('a1a3')
         screen.all_sprite.update()
 
 

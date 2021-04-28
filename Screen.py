@@ -53,6 +53,7 @@ class Screen(Board):
         self.all_sprite.add(self.chess_board)
         # add all pieces
         for i in self.initial_placement:
+            # for example key is WhiteRock
             key = i.get('piece')
             self.all_sprite.add(key)
         # display all sprites

@@ -1,6 +1,9 @@
 import pygame
 from ImageDatabase import ImageDatabase
 
+MOVE = pygame.USEREVENT+1
+
+
 
 class ChessObject(pygame.sprite.Sprite, ImageDatabase):
     def __init__(self):
@@ -147,16 +150,16 @@ class WhiteRook(ChessObject):
         self.image = self._w_rook
         self.rect = self.image.get_rect()
         self.rect.move_ip(xy_notation[0], xy_notation[1])
-        self.x = 213
-        self.y =213
-
-    def movee(self, dx, dy):
-        self.x = dx
-        self.y = dy
 
     def update(self):
-        self.rect.x = self.x
-        self.rect.y = self.y
+        # search for MOVE event which has sent by board.move function
+        for event in pygame.event.get():
+            if event.type == MOVE:
+                # event dict is {'dict": [X value, Y value]}
+                self.rect.x = event.dict['dict'][0]
+                self.rect.y = event.dict['dict'][1]
+
+
 
 class WhiteQueen(ChessObject):
     """

@@ -119,8 +119,15 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
             key = i.get('position')
             if key == chess_notation_move[0:2]:
                 temp = self.get_xy_from_chess_notation(chess_notation_move[2:4])
-                i.get("piece").movee(temp[0], temp[1])
-                break
+                # run update in piece (the piece is object which has initialized by chess_notation_move[0:2}
+                i.get("piece").update()
+                # publish event with massage
+                # - temp[0] - X value
+                # - temp[1] - Y value
+                my_event_1 = pygame.event.Event(MOVE, dict=[temp[0], temp[1]])
+                pygame.event.post(my_event_1)
+
+            break
 
     def get_xy_from_chess_notation(self, notation):
         for i in self.notation_to_xy_position:
