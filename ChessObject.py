@@ -7,6 +7,8 @@ class ChessObject(pygame.sprite.Sprite, ImageDatabase):
         pygame.sprite.Sprite.__init__(self)
         ImageDatabase.__init__(self)
 
+        self.is_moved = False
+
     def set_position(self, dx, dy):
         """
         set position of the object (piece), top-left corner is the center of object
@@ -14,8 +16,8 @@ class ChessObject(pygame.sprite.Sprite, ImageDatabase):
         :param dy: value to set
         :return: none
         """
-        self.rect.x =dx
-        self.rect.y =dy
+        self.rect.x = dx
+        self.rect.y = dy
 
     def remove(self):
         """
@@ -26,6 +28,7 @@ class ChessObject(pygame.sprite.Sprite, ImageDatabase):
 
     def update(self, *args, **kwargs):
         if len(args) == 2:
+            self.is_moved = True
             self.set_position(args[0], args[1])
 
 

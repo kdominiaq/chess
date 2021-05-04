@@ -3,6 +3,7 @@ import pygame
 from Board import Board
 
 
+
 class Screen(Board):
     """
     set caption also stores variables for initialize window (wth and hgt)
