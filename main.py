@@ -1,21 +1,13 @@
 import pygame
 
-from ChessObject import MOVE
 from Screen import Screen
-from Board import Board
-
-
 
 
 def main():
 
     screen = Screen()
-    board = Board()
-    screen.init_board_with_pieces()
 
     clock = pygame.time.Clock()
-
-
 
     # Game Loop
     running = True
@@ -31,17 +23,9 @@ def main():
                 running = False
             # event moving pieces
 
-
-        # update screen
-        board.move_piece('a1c6')
-
-        screen.all_sprite.update()
-
+        screen.board.move_piece('a1h2')
 
         screen.update()
-
-        pygame.display.flip()
-
 
 
 if __name__ == '__main__':

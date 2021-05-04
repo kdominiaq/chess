@@ -1,4 +1,5 @@
 import pygame
+
 from Board import Board
 
 
@@ -10,6 +11,9 @@ class Screen(Board):
     def __init__(self):
         super().__init__()
 
+        # create instantiation of board
+        self.board = Board()
+
         # set caption
         pygame.display.set_caption("Chess")
 
@@ -20,10 +24,7 @@ class Screen(Board):
         # initial screen
         self._width = (self.width_chess_board * 1.25).__round__()
         self._height = self.height_chess_board
-        self.screen = pygame.display.set_mode((self._width, self._height))
-
-        # initial sprite group
-        self.all_sprite = pygame.sprite.Group()
+        self._screen = pygame.display.set_mode((self._width, self._height))
 
     @staticmethod
     def on():
@@ -35,29 +36,11 @@ class Screen(Board):
 
     def update(self):
         """
-        screen update
+        screen and sprite_group update
         :return: none
         """
-        self.all_sprite.update()
-        self.all_sprite.draw(self.screen)
+        self.board.update_sprites(self._screen)
         pygame.display.flip()
-
-
-    def init_board_with_pieces(self):
-        """
-        add board and all pieces to  all_sprite (sprite.Gruop()) for start a game
-        for example: black bishop on 'c8' and 'f8'
-        :return: none
-        """
-        # add chess board
-        self.all_sprite.add(self.chess_board)
-        # add all pieces
-        for i in self.initial_placement:
-            # for example key is WhiteRock
-            key = i.get('piece')
-            self.all_sprite.add(key)
-        # display all sprites
-        self.all_sprite.draw(self.screen)
 
     @staticmethod
     def quit():

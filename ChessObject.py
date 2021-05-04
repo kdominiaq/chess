@@ -1,19 +1,11 @@
 import pygame
 from ImageDatabase import ImageDatabase
 
-MOVE = pygame.USEREVENT+1
-
-
 
 class ChessObject(pygame.sprite.Sprite, ImageDatabase):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         ImageDatabase.__init__(self)
-
-        # define image to can  using more function from pygame.sprite.Sprite.image
-        self.image = self._b_piece
-        # Square bonding
-        self.rect = self.image.get_rect()
 
     def set_position(self, dx, dy):
         """
@@ -22,7 +14,8 @@ class ChessObject(pygame.sprite.Sprite, ImageDatabase):
         :param dy: value to set
         :return: none
         """
-        self.rect.move_ip(dx, dy)
+        self.rect.x =dx
+        self.rect.y =dy
 
     def remove(self):
         """
@@ -30,6 +23,10 @@ class ChessObject(pygame.sprite.Sprite, ImageDatabase):
         :return: none
         """
         self.kill()
+
+    def update(self, *args, **kwargs):
+        if len(args) == 2:
+            self.set_position(args[0], args[1])
 
 
 class BlackPiece(ChessObject):
@@ -151,15 +148,6 @@ class WhiteRook(ChessObject):
         self.rect = self.image.get_rect()
         self.rect.move_ip(xy_notation[0], xy_notation[1])
 
-    def update(self):
-        # search for MOVE event which has sent by board.move function
-        for event in pygame.event.get():
-            if event.type == MOVE:
-                # event dict is {'dict": [X value, Y value]}
-                self.rect.x = event.dict['dict'][0]
-                self.rect.y = event.dict['dict'][1]
-
-
 
 class WhiteQueen(ChessObject):
     """
@@ -193,6 +181,7 @@ class ChessBoard(ChessObject):
     def __init__(self):
         super().__init__()
         self.image = self._chess_board
+        self.rect =  self.image.get_rect()
 
 
 
