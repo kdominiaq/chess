@@ -3,7 +3,6 @@ import pygame
 from Board import Board
 
 
-
 class Screen(Board):
     """
     set caption also stores variables for initialize window (wth and hgt)
@@ -23,7 +22,7 @@ class Screen(Board):
         pygame.display.set_icon(icon)
 
         # initial screen
-        self._width = (self.width_chess_board * 1.25).__round__()
+        self._width = self.width_chess_board
         self._height = self.height_chess_board
         self._screen = pygame.display.set_mode((self._width, self._height))
 

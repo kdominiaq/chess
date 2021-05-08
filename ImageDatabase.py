@@ -49,7 +49,7 @@ class ImageDatabase(Params):
         self._b_bishop = pygame.transform.scale(self._b_bishop, (self.width_field, self.height_field))
         self._b_king = pygame.transform.scale(self._b_king, (self.width_field, self.height_field))
 
-        # White pieces transfrom
+        # White pieces transform
         self._w_piece = pygame.transform.scale(self._w_piece, (self.width_field, self.height_field))
         self._w_rook = pygame.transform.scale(self._w_rook, (self.width_field, self.height_field))
         self._w_knight = pygame.transform.scale(self._w_knight, (self.width_field, self.height_field))
