@@ -2,7 +2,7 @@ from ChessObject import *
 
 
 class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQueen, BlackKnight,
-            WhiteBishop, WhiteKing,  WhiteRook, WhiteKnight, WhitePiece, WhiteQueen):
+            WhiteBishop, WhiteKing, WhiteRook, WhiteKnight, WhitePiece, WhiteQueen):
     def __init__(self):
         super().__init__()
 
@@ -113,17 +113,19 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
                                    {'piece': BlackPiece(self._get_xy_from_chess_notation('h7')), 'position': 'h7'}]
 
         # initial sprite group
+        self._board_sprite = pygame.sprite.GroupSingle()
         self._all_sprite = pygame.sprite.Group()
         self._add_pieces_to_sprite_group()
 
     def update_sprites(self, screen):
+        self._board_sprite.draw(screen)
         self._all_sprite.update()
         self._all_sprite.draw(screen)
 
     def _add_pieces_to_sprite_group(self):
         self.chess_board = ChessBoard()
         # add chess board
-        self._all_sprite.add(self.chess_board)
+        self._board_sprite.add(self.chess_board)
         # add all pieces
         self._all_sprite.add(self._initial_placement[0].get('piece'))
         for i in self._initial_placement:
@@ -141,44 +143,59 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         # get (x,y) for previous_pos and next_pos by chess notation, like 'a1'
         previous_pos = self._get_xy_from_chess_notation(chess_notation_move[0:2])
         new_pos = self._get_xy_from_chess_notation(chess_notation_move[2:4])
-        print(len(self._all_sprite))
-        # searching piece by compare (x, y)
+        print(previous_pos)
         for i in self._all_sprite.sprites():
             # key = rect.x, rect.f of sprite in group
             key = (i.rect.x, i.rect.y)
             # if on new position is some piece, must be remove - because beat
             if key == new_pos:
                 i.remove()
+                break
+
+        # searching piece by compare (x, y)
+        for i in self._all_sprite.sprites():
+            # key = rect.x, rect.f of sprite in group
+            key = (i.rect.x, i.rect.y)
+
             # if previous pos is the same like key, set new position of piece
             if key == previous_pos:
                 # fix the bug which has showed screen wrong (moved board)
                 if isinstance(i, ChessBoard):
-                    break
+                    continue
                 # looking for switch rook with king, so rooks are only in the corner on the board. In project I decide
                 # to choose convention like this:
                 # - sprites left top corner (x,y) = (0,0) - this is a reference point of move.
                 # for example, top right field system interaction's of the board is (0, width_board - width_field)
-                if (isinstance(i, BlackKing) or isinstance(i, WhiteKing)) and i.is_moved is False:
+                if isinstance(i, BlackKing) or isinstance(i, WhiteKing):
                     # ('b1', 'g1', 'b8', 'g8')
                     for rook in self._all_sprite.sprites():
                         if chess_notation_move[2:4] == 'c1' and isinstance(rook, WhiteRook) and rook.rect.x == 0 \
                                 and rook.rect.y == (self.height_chess_board - self.height_field):
                             temp = self._get_xy_from_chess_notation('d1')
+
                             rook.update(temp[0], temp[1])
                         elif chess_notation_move[2:4] == 'g1' and isinstance(rook, WhiteRook) and \
-                                rook.rect.x == (self.width_chess_board - self.width_field) and rook.rect.y == (self.height_chess_board - self.height_field):
+                                rook.rect.x == (self.width_chess_board - self.width_field) and rook.rect.y == (
+                                self.height_chess_board - self.height_field):
                             temp = self._get_xy_from_chess_notation('f1')
+
                             rook.update(temp[0], temp[1])
-                        elif chess_notation_move[2:4] == 'c8'and isinstance(rook, BlackRook) and rook.rect.x == 0 \
+                        elif chess_notation_move[2:4] == 'c8' and isinstance(rook, BlackRook) and rook.rect.x == 0 \
                                 and rook.rect.y == 0:
                             temp = self._get_xy_from_chess_notation('d8')
                             rook.update(temp[0], temp[1])
+
                         elif chess_notation_move[2:4] == 'g8' and isinstance(rook, BlackRook) \
                                 and rook.rect.x == (self.width_chess_board - self.width_field) and rook.rect.y == 0:
                             temp = self._get_xy_from_chess_notation('f8')
                             rook.update(temp[0], temp[1])
 
                 # next_post is a tuple (x, y), for sprite.Sprite.update must send variable by variable
+                if isinstance(i, BlackPiece) and (i.rect.y == self.height_chess_board - self.height_field):
+                    print('damka')
+                if isinstance(i, WhiteRook) and i.rect.y ==0:
+                    print('damka')
+
                 i.update(new_pos[0], new_pos[1])
 
     def _get_xy_from_chess_notation(self, notation):
@@ -199,15 +216,11 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         Returns position of 'X' and 'Y' by chess notation. Function scan list '_notation_to_xy_position'
         for dict with the same notation like passing notation. Example: passing 'a1' -> return (0,700), example is true
         if height and width of chess board i 800x800.
-        :param notation: chess notation to one field, like 'a1'
+        :param xy: chess notation to one field, like 'a1'
         :return: tuple with x and y value
         """
         for i in self._notation_to_xy_position:
             key = i.get('position')
             if key == xy:
                 return i.get('notation')
-
-
-
-
 

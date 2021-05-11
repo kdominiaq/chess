@@ -184,7 +184,8 @@ class ChessBoard(ChessObject):
     def __init__(self):
         super().__init__()
         self.image = self._chess_board
-        self.rect =  self.image.get_rect()
+        self.rect = self.image.get_rect()
+
 
 
 

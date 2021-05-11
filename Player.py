@@ -31,7 +31,7 @@ class Human(Player):
             #print(db.moves)
             db.FLAG = 0
         """
-        move = db.sf.get_best_move_time(100)
+        move = db.sf.get_best_move_time(500)
         self._send_notation_for_move_by_event(db.STOCK_FISH_MOVE, move)
         db.moves.append(move)
         db.sf.set_position(db.moves)
@@ -49,8 +49,6 @@ class Computer(Player):
         db.sf.set_position(db.moves)
 
         db.FLAG = 1
-
-
 
 
 human = Human()

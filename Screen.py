@@ -40,6 +40,7 @@ class Screen(Board):
         :return: none
         """
         self.board.update_sprites(self._screen)
+        self.board.update_sprites(self._screen)
         pygame.display.flip()
 
     @staticmethod
