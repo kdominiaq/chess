@@ -27,11 +27,9 @@ class Human(Player):
             self._send_notation_for_move_by_event(db.USER_MOVE, move)
             db.moves.append(move)
             db.sf.set_position(db.moves)
-            #print(db.sf.get_board_visual())
-            #print(db.moves)
             db.FLAG = 0
         """
-        move = db.sf.get_best_move_time(500)
+        move = db.sf.get_best_move_time(70)
         self._send_notation_for_move_by_event(db.STOCK_FISH_MOVE, move)
         db.moves.append(move)
         db.sf.set_position(db.moves)
@@ -43,7 +41,7 @@ class Computer(Player):
         super().__init__()
 
     def move(self):
-        move = db.sf.get_best_move_time(100)
+        move = db.sf.get_best_move_time(50)
         self._send_notation_for_move_by_event(db.STOCK_FISH_MOVE, move)
         db.moves.append(move)
         db.sf.set_position(db.moves)

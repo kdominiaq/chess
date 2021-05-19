@@ -1,5 +1,5 @@
 from ChessObject import *
-
+from DataBank import data_bank as db
 
 class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQueen, BlackKnight,
             WhiteBishop, WhiteKing, WhiteRook, WhiteKnight, WhitePiece, WhiteQueen):
@@ -133,9 +133,11 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
             key = i.get('piece')
             self._all_sprite.add(key)
 
+
+
+
     def move_piece(self, chess_notation_move):
         """
-
         :param chess_notation_move: is pair of chess fields, like 'a2a4'
         :return: None
         """
@@ -143,7 +145,7 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         # get (x,y) for previous_pos and next_pos by chess notation, like 'a1'
         previous_pos = self._get_xy_from_chess_notation(chess_notation_move[0:2])
         new_pos = self._get_xy_from_chess_notation(chess_notation_move[2:4])
-        print(previous_pos)
+        print(new_pos)
         for i in self._all_sprite.sprites():
             # key = rect.x, rect.f of sprite in group
             key = (i.rect.x, i.rect.y)
@@ -190,12 +192,15 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
                             temp = self._get_xy_from_chess_notation('f8')
                             rook.update(temp[0], temp[1])
 
-                # next_post is a tuple (x, y), for sprite.Sprite.update must send variable by variable
+                # looking for changing pawn for queen
                 if isinstance(i, BlackPiece) and (i.rect.y == self.height_chess_board - self.height_field):
-                    print('damka')
-                if isinstance(i, WhiteRook) and i.rect.y ==0:
-                    print('damka')
+                    print('w damka')
+                    i = BlackQueen((i.rect.x, i.rect.y))
+                if isinstance(i, WhiteRook) and i.rect.y == 0:
+                    print('b damka')
+                    i = WhiteQueen((i.rect.x, i.rect.y))
 
+                # next_post is a tuple (x, y), for sprite.Sprite.update must send variable by variable
                 i.update(new_pos[0], new_pos[1])
 
     def _get_xy_from_chess_notation(self, notation):

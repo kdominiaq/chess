@@ -13,7 +13,7 @@ def main():
     while running:
 
         # declaration fps
-        clock.tick(15)
+        clock.tick(30)
 
         # Process input (events)
         for event in pygame.event.get():
@@ -24,6 +24,8 @@ def main():
                 screen.board.move_piece(event.dict['dict'])
             elif event.type == data_bank.STOCK_FISH_MOVE:
                 screen.board.move_piece(event.dict['dict'])
+            elif event.type == data_bank.DRAW:
+                print("==================DRAW===================")
 
         if data_bank.FLAG:
             human.move()
