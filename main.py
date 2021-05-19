@@ -1,17 +1,23 @@
 import pygame
 from Screen import Screen
-from DataBank import data_bank
+from DataBank import DataBank
 from Player import human, computer
+from GameLogic import GameLogic
+
 
 def main():
 
+
+    game_logic = GameLogic()
+    data_bank = DataBank()
     screen = Screen()
     clock = pygame.time.Clock()
 
     # Game Loop
     running = True
     while running:
-
+        print(DataBank._board_sprite)
+        print(DataBank._all_sprite)
         # declaration fps
         clock.tick(30)
 
@@ -34,7 +40,7 @@ def main():
 
         screen.update()
 
-
+        game_logic.check_status_of_game_by()
 if __name__ == '__main__':
     main()
 

@@ -1,10 +1,12 @@
 from ChessObject import *
-from DataBank import data_bank as db
+from DataBank import DataBank
+
 
 class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQueen, BlackKnight,
-            WhiteBishop, WhiteKing, WhiteRook, WhiteKnight, WhitePiece, WhiteQueen):
+            WhiteBishop, WhiteKing, WhiteRook, WhiteKnight, WhitePiece, WhiteQueen, DataBank):
     def __init__(self):
         super().__init__()
+        DataBank.__init__(self)
 
         self._notation_to_xy_position = [{'notation': 'a1', 'position': (self.width_field * 0, self.height_field * 7)},
                                          {'notation': 'a2', 'position': (self.width_field * 0, self.height_field * 6)},
@@ -112,29 +114,24 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
                                    {'piece': BlackPiece(self._get_xy_from_chess_notation('g7')), 'position': 'g7'},
                                    {'piece': BlackPiece(self._get_xy_from_chess_notation('h7')), 'position': 'h7'}]
 
-        # initial sprite group
-        self._board_sprite = pygame.sprite.GroupSingle()
-        self._all_sprite = pygame.sprite.Group()
+        # add sprites to groups
         self._add_pieces_to_sprite_group()
 
-    def update_sprites(self, screen):
-        self._board_sprite.draw(screen)
-        self._all_sprite.update()
-        self._all_sprite.draw(screen)
+    @staticmethod
+    def update_sprites(screen):
+        DataBank._board_sprite.draw(screen)
+        DataBank._all_sprite.update()
+        DataBank._all_sprite.draw(screen)
 
     def _add_pieces_to_sprite_group(self):
         self.chess_board = ChessBoard()
         # add chess board
-        self._board_sprite.add(self.chess_board)
+        DataBank._board_sprite.add(self.chess_board)
         # add all pieces
-        self._all_sprite.add(self._initial_placement[0].get('piece'))
         for i in self._initial_placement:
             # for example key is WhiteRock
             key = i.get('piece')
-            self._all_sprite.add(key)
-
-
-
+            DataBank._all_sprite.add(key)
 
     def move_piece(self, chess_notation_move):
         """
@@ -145,8 +142,8 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         # get (x,y) for previous_pos and next_pos by chess notation, like 'a1'
         previous_pos = self._get_xy_from_chess_notation(chess_notation_move[0:2])
         new_pos = self._get_xy_from_chess_notation(chess_notation_move[2:4])
-        print(new_pos)
-        for i in self._all_sprite.sprites():
+
+        for i in DataBank._all_sprite.sprites():
             # key = rect.x, rect.f of sprite in group
             key = (i.rect.x, i.rect.y)
             # if on new position is some piece, must be remove - because beat
@@ -155,7 +152,7 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
                 break
 
         # searching piece by compare (x, y)
-        for i in self._all_sprite.sprites():
+        for i in DataBank._all_sprite.sprites():
             # key = rect.x, rect.f of sprite in group
             key = (i.rect.x, i.rect.y)
 
@@ -170,7 +167,7 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
                 # for example, top right field system interaction's of the board is (0, width_board - width_field)
                 if isinstance(i, BlackKing) or isinstance(i, WhiteKing):
                     # ('b1', 'g1', 'b8', 'g8')
-                    for rook in self._all_sprite.sprites():
+                    for rook in DataBank._all_sprite.sprites():
                         if chess_notation_move[2:4] == 'c1' and isinstance(rook, WhiteRook) and rook.rect.x == 0 \
                                 and rook.rect.y == (self.height_chess_board - self.height_field):
                             temp = self._get_xy_from_chess_notation('d1')

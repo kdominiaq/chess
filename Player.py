@@ -1,10 +1,10 @@
 import pygame
-from DataBank import data_bank as db
+from DataBank import DataBank
 
 
-class Player(object):
+class Player(DataBank):
     def __init__(self):
-        super().__init__()
+        DataBank.__init__(self)
         self.event = None
 
     def _send_notation_for_move_by_event(self, event_type, notation):
@@ -29,11 +29,11 @@ class Human(Player):
             db.sf.set_position(db.moves)
             db.FLAG = 0
         """
-        move = db.sf.get_best_move_time(70)
-        self._send_notation_for_move_by_event(db.STOCK_FISH_MOVE, move)
-        db.moves.append(move)
-        db.sf.set_position(db.moves)
-        db.FLAG = 1
+        move = self.sf.get_best_move_time(70)
+        self._send_notation_for_move_by_event(self.STOCK_FISH_MOVE, move)
+        DataBank._moves.append(move)
+        self.sf.set_position(DataBank._moves)
+        self.FLAG = 1
 
 
 class Computer(Player):
@@ -41,12 +41,12 @@ class Computer(Player):
         super().__init__()
 
     def move(self):
-        move = db.sf.get_best_move_time(50)
-        self._send_notation_for_move_by_event(db.STOCK_FISH_MOVE, move)
-        db.moves.append(move)
-        db.sf.set_position(db.moves)
+        move = self.sf.get_best_move_time(50)
+        self._send_notation_for_move_by_event(self.STOCK_FISH_MOVE, move)
+        DataBank._moves.append(move)
+        self.sf.set_position(self.moves)
 
-        db.FLAG = 1
+        self.FLAG = 1
 
 
 human = Human()
