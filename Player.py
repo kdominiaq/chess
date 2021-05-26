@@ -1,3 +1,7 @@
+"""
+TODO
+- clean up the mess
+"""
 import pygame
 from DataBank import DataBank
 
@@ -44,7 +48,7 @@ class Computer(Player):
         move = self.sf.get_best_move_time(50)
         self._send_notation_for_move_by_event(self.STOCK_FISH_MOVE, move)
         DataBank._moves.append(move)
-        self.sf.set_position(self.moves)
+        self.sf.set_position(DataBank._moves)
 
         self.FLAG = 1
 

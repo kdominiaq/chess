@@ -1,3 +1,8 @@
+"""
+TODO
+- add description about the file.
+"""
+
 import pygame
 
 from Board import Board

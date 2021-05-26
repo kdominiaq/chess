@@ -1,3 +1,9 @@
+"""
+TODO
+- add exceptions
+- add events, which decide whose won
+"""
+
 from DataBank import DataBank
 from ChessObject import *
 

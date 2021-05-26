@@ -1,3 +1,18 @@
+"""
+Board object contains all features for displaying pieces and chess board, also allows to move the all pieces on the board.
+Object contains two dictionary, there are:
+- self._notation_to_xy_position: contains the chess notation names "notation" and the corresponding X and Y
+                                 coordinates names "position" to display on the screen.
+- self._initial_placement: contains initial placement for all pieces on the board and creates object like 'WhiteKing' on
+                           proper field of the board, in this example it's 'e1'.
+also the module during initialization adds all to the board by self._add_pieces_to_sprite_group() function.
+
+
+TODO
+-describe move_pices function
+-add exceptions
+"""
+
 from ChessObject import *
 from DataBank import DataBank
 
@@ -119,11 +134,21 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
 
     @staticmethod
     def update_sprites(screen):
+        """
+        Update sprites on the board, using always after the move.
+        :param screen: object on the screen, that must be major screen of the game.
+        :return: none.
+        """
         DataBank._board_sprite.draw(screen)
         DataBank._all_sprite.update()
         DataBank._all_sprite.draw(screen)
 
     def _add_pieces_to_sprite_group(self):
+        """
+        Adding sprite of chess board and all pieces to special lists. Which will be using to update all objects on the
+        board by "update_sprites" function.
+        :return: none.
+        """
         self.chess_board = ChessBoard()
         # add chess board
         DataBank._board_sprite.add(self.chess_board)
@@ -138,7 +163,6 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         :param chess_notation_move: is pair of chess fields, like 'a2a4'
         :return: None
         """
-
         # get (x,y) for previous_pos and next_pos by chess notation, like 'a1'
         previous_pos = self._get_xy_from_chess_notation(chess_notation_move[0:2])
         new_pos = self._get_xy_from_chess_notation(chess_notation_move[2:4])
@@ -191,10 +215,8 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
 
                 # looking for changing pawn for queen
                 if isinstance(i, BlackPiece) and (i.rect.y == self.height_chess_board - self.height_field):
-                    print('w damka')
                     i = BlackQueen((i.rect.x, i.rect.y))
                 if isinstance(i, WhiteRook) and i.rect.y == 0:
-                    print('b damka')
                     i = WhiteQueen((i.rect.x, i.rect.y))
 
                 # next_post is a tuple (x, y), for sprite.Sprite.update must send variable by variable

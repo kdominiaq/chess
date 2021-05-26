@@ -1,5 +1,5 @@
 """
-Module inherits values of width/height field and board also image folder path. It is responsibly for load image to
+Module inherits values of width/height field and board also image folder path. It is responsible for load image to
 pygame.image and transform of pieces by variables from Params.
 
 Code using this module has to handle following exceptions:

@@ -1,3 +1,9 @@
+"""
+TODO
+- add description of the file
+- add exceptions which check value of notation
+"""
+
 import pygame
 from ImageDatabase import ImageDatabase
 
@@ -154,7 +160,7 @@ class WhiteRook(ChessObject):
 
 class WhiteQueen(ChessObject):
     """
-    set image for white Queen and set position on the board by given a chess notation, like "a1'
+    set image for white Queen and set position on the board by given a chess notation, like "a1'.
     :return: none
     """
     def __init__(self, xy_notation=(0, 0)):
@@ -166,8 +172,8 @@ class WhiteQueen(ChessObject):
 
 class WhiteKing(ChessObject):
     """
-    set image for white King and set position on the board by given a chess notation, like "a1'
-    :return: none
+    Set image for white King and set position on the board by given a chess notation, like "a1'.
+    :return: none.
     """
     def __init__(self, xy_notation=(0, 0)):
         super().__init__()
@@ -178,9 +184,9 @@ class WhiteKing(ChessObject):
 
 class ChessBoard(ChessObject):
     """
-    set image for white King and set position on the board by given a chess notation, like "a1'
-    :return: none
-   """
+    Set image for chess board.
+    :return: none.
+    """
     def __init__(self):
         super().__init__()
         self.image = self._chess_board
