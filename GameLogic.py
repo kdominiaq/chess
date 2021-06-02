@@ -50,7 +50,8 @@ class GameLogic(DataBank, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQu
             return True
         # Only Kings and one Knight or Bishop on the board
         if len(DataBank._all_sprite) == 3:
-            # If counter is three that means is draw, counter++ if one of the list of bishops, knights and kings exists.
+            # If counter is three that means is draw, counter++ if one from the list of bishops, knights and kings
+            # exists.
             counter_of_piece = 0
             for single_piece in DataBank._all_sprite:
                 if isinstance(BlackKing, single_piece):

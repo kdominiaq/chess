@@ -21,7 +21,6 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
             WhiteBishop, WhiteKing, WhiteRook, WhiteKnight, WhitePiece, WhiteQueen, DataBank):
     def __init__(self):
         super().__init__()
-        DataBank.__init__(self)
 
         self._notation_to_xy_position = [{'notation': 'a1', 'position': (self.width_field * 0, self.height_field * 7)},
                                          {'notation': 'a2', 'position': (self.width_field * 0, self.height_field * 6)},
@@ -152,11 +151,14 @@ class Board(ChessBoard, BlackPiece, BlackBishop, BlackKing, BlackRook, BlackQuee
         self.chess_board = ChessBoard()
         # add chess board
         DataBank._board_sprite.add(self.chess_board)
-        # add all pieces
-        for i in self._initial_placement:
-            # for example key is WhiteRock
-            key = i.get('piece')
-            DataBank._all_sprite.add(key)
+        print(DataBank._all_sprite.__len__())
+        # check numbers of piece in the sprite group - must be 32, if is more then 32 break
+        if DataBank._all_sprite.__len__() <32:
+            # add all pieces
+            for i in self._initial_placement:
+                # for example key is WhiteRock
+                key = i.get('piece')
+                DataBank._all_sprite.add(key)
 
     def move_piece(self, chess_notation_move):
         """

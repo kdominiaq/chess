@@ -7,7 +7,6 @@ from GameLogic import GameLogic
 
 def main():
 
-
     game_logic = GameLogic()
     data_bank = DataBank()
     screen = Screen()
@@ -16,8 +15,7 @@ def main():
     # Game Loop
     running = True
     while running:
-        print(DataBank._board_sprite)
-        print(DataBank._all_sprite)
+        
         # declaration fps
         clock.tick(30)
 
